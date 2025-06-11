@@ -338,7 +338,7 @@ export default function PreOrderPage() {
                         >
                           <div className="flex justify-between items-center">
                             <h4 className="font-medium">
-                              Material {index + 1}
+                              Pekerjaan {index + 1}
                             </h4>
                             {!isViewMode && formData.materials.length > 1 && (
                               <Button
