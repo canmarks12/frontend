@@ -35,6 +35,7 @@ interface Material {
   id: number;
   namaPekerjaan: string;
   namaMaterial: string;
+  noSuratJalan: string;
   qty?: number;
   satuan?: string;
 }
@@ -60,6 +61,7 @@ export default function PreOrderPage() {
           id: 1,
           namaPekerjaan: 'Instalasi',
           namaMaterial: 'Kabel Listrik',
+          noSuratJalan: 'SJ-001',
           qty: 100,
           satuan: 'meter',
         },
@@ -76,6 +78,7 @@ export default function PreOrderPage() {
           id: 1,
           namaPekerjaan: 'Pemasangan',
           namaMaterial: 'Pipa PVC',
+          noSuratJalan: 'SJ-002',
           qty: 50,
           satuan: 'batang',
         },
@@ -97,6 +100,7 @@ export default function PreOrderPage() {
         id: 1,
         namaPekerjaan: '',
         namaMaterial: '',
+        noSuratJalan: '',
         qty: undefined,
         satuan: '',
       },
@@ -123,6 +127,7 @@ export default function PreOrderPage() {
           id: 1,
           namaPekerjaan: '',
           namaMaterial: '',
+          noSuratJalan: '',
           qty: undefined,
           satuan: '',
         },
@@ -188,6 +193,7 @@ export default function PreOrderPage() {
       id: Math.max(...formData.materials.map((m) => m.id)) + 1,
       namaPekerjaan: '',
       namaMaterial: '',
+      noSuratJalan: '',
       qty: undefined,
       satuan: '',
     };
@@ -306,11 +312,11 @@ export default function PreOrderPage() {
                     </CardContent>
                   </Card>
 
-                  {/* Card 2 - Pekerjaan - Materials */}
+                  {/* Card 2 - Materials */}
                   <Card>
                     <CardHeader>
                       <div className="flex justify-between items-center">
-                        <CardTitle>Pekerjaan - Material</CardTitle>
+                        <CardTitle>Materials</CardTitle>
                         {!isViewMode && (
                           <Button
                             type="button"
@@ -328,11 +334,11 @@ export default function PreOrderPage() {
                       {formData.materials.map((material, index) => (
                         <div
                           key={material.id}
-                          className="grid gap-4 p-4 border rounded-lg"
+                          className="p-4 border rounded-lg space-y-4"
                         >
                           <div className="flex justify-between items-center">
                             <h4 className="font-medium">
-                              Pekerjaan & Material {index + 1}
+                              Material {index + 1}
                             </h4>
                             {!isViewMode && formData.materials.length > 1 && (
                               <Button
@@ -345,7 +351,8 @@ export default function PreOrderPage() {
                               </Button>
                             )}
                           </div>
-                          <div className="grid grid-cols-2 gap-4">
+                          
+                          <div className="grid gap-4">
                             <div className="grid gap-2">
                               <Label>Nama Pekerjaan</Label>
                               <Input
@@ -361,8 +368,9 @@ export default function PreOrderPage() {
                                 disabled={isViewMode}
                               />
                             </div>
+                            
                             <div className="grid gap-2">
-                              <Label>Search Surat Jalan / Material :</Label>
+                              <Label>Search Surat Jalan / Material</Label>
                               <Input
                                 value={material.namaMaterial}
                                 onChange={(e) =>
@@ -376,9 +384,26 @@ export default function PreOrderPage() {
                                 disabled={isViewMode}
                               />
                             </div>
-                            <Card>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div className="grid gap-2">
-                                <Label>Nomo Surat Jalan</Label>
+                                <Label>No Surat Jalan</Label>
+                                <Input
+                                  value={material.noSuratJalan}
+                                  onChange={(e) =>
+                                    updateMaterial(
+                                      index,
+                                      'noSuratJalan',
+                                      e.target.value
+                                    )
+                                  }
+                                  placeholder="Enter surat jalan number"
+                                  disabled={isViewMode}
+                                />
+                              </div>
+                              
+                              <div className="grid gap-2">
+                                <Label>Nama Material</Label>
                                 <Input
                                   value={material.namaMaterial}
                                   onChange={(e) =>
@@ -388,11 +413,32 @@ export default function PreOrderPage() {
                                       e.target.value
                                     )
                                   }
+                                  placeholder="Enter material name"
                                   disabled={isViewMode}
                                 />
                               </div>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div className="grid gap-2">
-                                <Label>Nama Material</Label>
+                                <Label>Quantity</Label>
+                                <Input
+                                  type="number"
+                                  value={material.qty || ''}
+                                  onChange={(e) =>
+                                    updateMaterial(
+                                      index,
+                                      'qty',
+                                      parseInt(e.target.value) || undefined
+                                    )
+                                  }
+                                  placeholder="Enter quantity"
+                                  disabled={isViewMode}
+                                />
+                              </div>
+                              
+                              <div className="grid gap-2">
+                                <Label>Satuan</Label>
                                 <Input
                                   value={material.satuan || ''}
                                   onChange={(e) =>
@@ -402,10 +448,11 @@ export default function PreOrderPage() {
                                       e.target.value
                                     )
                                   }
+                                  placeholder="Enter unit"
                                   disabled={isViewMode}
                                 />
                               </div>
-                            </Card>
+                            </div>
                           </div>
                         </div>
                       ))}
