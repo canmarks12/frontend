@@ -316,7 +316,7 @@ export default function PreOrderPage() {
                   <Card>
                     <CardHeader>
                       <div className="flex justify-between items-center">
-                        <CardTitle>Materials</CardTitle>
+                        <CardTitle>Pekerjaan - Materials</CardTitle>
                         {!isViewMode && (
                           <Button
                             type="button"
@@ -325,7 +325,7 @@ export default function PreOrderPage() {
                             size="sm"
                           >
                             <Plus className="w-4 h-4 mr-2" />
-                            Add Material
+                            Add Pekerjaan
                           </Button>
                         )}
                       </div>
